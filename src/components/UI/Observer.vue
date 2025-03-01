@@ -26,7 +26,6 @@ const handleIntersection = (entries) => {
     if (entry.isIntersecting) {
       hasIntersected = true
       props.action()
-      console.log('загрузка')
     }
   })
 }

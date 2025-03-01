@@ -1,7 +1,6 @@
 <template>
   <AppHeader class="mx-auto"/>
   <MainTable class="mx-auto"/>
-  
 </template>
 
 <script setup>
