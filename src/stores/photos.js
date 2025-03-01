@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 
 export const usePhotosStore = defineStore('counter', {
   state: () => ({
-    photos: []
+    photos: [],
+    serach: false
   }),
   actions: {
     formattingPhotos(obj){
@@ -17,6 +18,7 @@ export const usePhotosStore = defineStore('counter', {
     },
     async fetchPhoto(){
       try {
+        this.serach = false
         const url = this.photos.length === 0 
           ? 'https://jsonplaceholder.typicode.com/photos?_limit=30' 
           : `https://jsonplaceholder.typicode.com/photos?_start=${this.photos.length}&_limit=20`
@@ -36,6 +38,7 @@ export const usePhotosStore = defineStore('counter', {
     async searchAlbum(){
       try {
         let paramsReq = null
+        this.serach = true
         const queryParams = new URLSearchParams(window.location.search)
         const albumIds = queryParams.getAll('albumId').filter(id => !isNaN(parseInt(id))) // удаляем не числа из albumId
 

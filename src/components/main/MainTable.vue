@@ -53,7 +53,7 @@
           </tr>
         </template>
 
-        <tr class="bg-neutral-700" v-if="!photosState.searchFilter">
+        <tr class="bg-neutral-700" v-if="!photosState.serach">
           <td colspan="5" class="p-3">
             <Observer
               class="w-full rounded bg-gray-300 h-8 animate-pulse shadow-md"
@@ -82,8 +82,8 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .custom-scrollbar {
-  scrollbar-width: thin; /* Для Firefox */
-  scrollbar-color: #d4d4d4 #27272a; /* Цвет полосы и фон */
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 #27272a;
 
   &::-webkit-scrollbar {
     width: 12px;
