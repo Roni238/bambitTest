@@ -1,1 +1,15 @@
 @import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  outline: none;
+}
+body{
+  background: #27272a;
+}
+
+button{
+  cursor: pointer;
+}
