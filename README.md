@@ -1,5 +1,20 @@
-# Vue 3 + Vite
+# bambit-test
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Предпросмотр https://bambit-test.vercel.app/
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Начало работы
+
+```
+$ npm install
+$ npm run dev
+```
+
+Тестовое задание для Bambit, стек Vue 3, Pinia, Tailwind CSS,
+
+* При заходе отображается 30 строк скелетонов таблицы, скелетоны и на шапке таблицы до загрузки постов
+* В onMounted отрабатывает поиск, он проверяет наличие квари параметров у страницы, если их нет то проверяет стейт на наличие searchFilter, если его тоже нет, срабатывает fetchPhoto, при первой загрузке загружаются 30 фото, далее при скроле обсервер вызывает снова fetchPhoto но по 20 постов, обработка ошибок просто выводит console.error сообщение об ошибке
+* Все данные из поиска отображаются в url страницы
+* Поиск после нажатия своей кнопки отправляет запрос на api c выбранными альбомами и отображает их
+* У поиска сделана проверка на ввод, вводятся только числа
+* Кнопка "Назад" сбрасывает searchFilter и квери параметры в url и возвращает ко всем постам, тк квери параметры связаны с searchFilter, при вводе они сразу отображаются в пути
+* можно обыло сделать чтобы поиск запускался при изменении значения в input с модификатором .lazy но нужно было чтобы запрос отправлялся по кнопке

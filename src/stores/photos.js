@@ -2,8 +2,7 @@ import { defineStore } from 'pinia'
 
 export const usePhotosStore = defineStore('counter', {
   state: () => ({
-    photos: [],
-    searchFilter: ''
+    photos: []
   }),
   actions: {
     formattingPhotos(obj){
@@ -36,26 +35,16 @@ export const usePhotosStore = defineStore('counter', {
     },
     async searchAlbum(){
       try {
-        // параметры запроса
         let paramsReq = null
+        const queryParams = new URLSearchParams(window.location.search)
+        const albumIds = queryParams.getAll('albumId').filter(id => !isNaN(parseInt(id))) // удаляем не числа из albumId
 
-        if(this.searchFilter){
-          //если searchFilter не пустой то paramsReq использует эти значения + в квери параметры сайта добавим параметры запроса
-          paramsReq = this.searchFilter.split(' ').map(id => `albumId=${id}`)
-          window.history.pushState(null, '', `?${paramsReq.join('&')}`)
-        }else{
-          // если searchFilter пустой то проверяем не путой ли первый элемент у квери параметров страницы(и существует ли он)
-          const queryParams = new URLSearchParams(window.location.search)
-          const albumIds = queryParams.getAll('albumId').filter(id => !isNaN(parseInt(id))) // удаляем не числа из albumId
-
-          if(albumIds[0]){
-            //если квери параметры есть то параметры для запроса применим из url
-            paramsReq = albumIds.join(' ').split(' ').map(id => `albumId=${id}`)
-            this.searchFilter = albumIds.join(' ')
-          }
+        if(albumIds[0]){
+          //если квери параметры есть то параметры для запроса применим из url
+          paramsReq = albumIds.join(' ').split(' ').map(id => `albumId=${id}`)
         }
 
-        // после проверок делаем запрос с paramsReq, если он пустой то просто грузим фото
+        // если параметры для запроса есть то делаем запрос, если нет грузим фото
         if(paramsReq){
           const response = await fetch(`https://jsonplaceholder.typicode.com/photos?${paramsReq.join('&')}`)
            const data = await response.json()
@@ -66,13 +55,6 @@ export const usePhotosStore = defineStore('counter', {
       } catch (error) {
         console.error(error)
       }
-    },
-    clearSearch(){
-      this.searchFilter = '';
-      const newUrl = window.location.origin + window.location.pathname
-      window.history.replaceState(null, '', newUrl)
-      this.photos = []
-      this.fetchPhoto()
     }
-  },
+  }
 })
